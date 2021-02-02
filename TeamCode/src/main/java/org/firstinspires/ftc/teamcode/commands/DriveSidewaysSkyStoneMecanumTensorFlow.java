@@ -101,19 +101,19 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
 
         // Loading trackables is not necessary for the TensorFlow Object Detection engine.
 
-        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
+        //if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             int tfodMonitorViewId = map.appContext.getResources().getIdentifier(
                     "tfodMonitorViewId", "id", map.appContext.getPackageName());
             TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-            tfodParameters.minimumConfidence = 0.6;
+            tfodParameters.minResultConfidence = 0.8f;
             tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, io.vuforia);
 
             // Try to only load Skystone
             //tfod.loadModelFromAsset(TFOD_MODEL_ASSET, null, LABEL_SECOND_ELEMENT);
             tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
-        } else {
-            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
-        }
+        //} else {
+        //    telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+        //}
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
